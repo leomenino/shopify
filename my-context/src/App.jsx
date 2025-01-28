@@ -10,35 +10,23 @@ import { Link } from 'react-router-dom'
 
 function App() {
 
-  // 1. Colocar a Products Page funcional,
-  //    com redirect para Product Individual
-  // 2. Desenvolver a Product Page Individual:
-  //    Deve fazer uma chamada axios a ie. http:/localhost:3000/products/2
-  //    e preencher os dados da página
-  // 3. Utilizar o Cart:
-  //    ProductPage deve ter um botão que adiciona 1 item
-  //    a cart (se o item já existir, aumentar em 1 a quantidade)
-  // 4. Desenvolver a CartPage:
-  //    CartPage deve mostrar os itens e quantidades no carrinho
-  //    e ter controlos para adicionar ou remover quantidades
-
   const [cart, setCart] = useState([])
 
   const addToCart = (product) => {
     console.log('Função addToCart chamada com:', product) // Para debug
     setCart(currentCart => {
       const existingItem = currentCart.find(item => item.id === product.id)
-      
+
       if (existingItem) {
         // Se o produto já existe, aumenta a quantidade
-        return currentCart.map(item => 
-          item.id === product.id 
-            ? {...item, quantity: item.quantity + 1}
+        return currentCart.map(item =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
             : item
         )
       } else {
         // Se não existe, adiciona com quantidade 1
-        return [...currentCart, {...product, quantity: 1}]
+        return [...currentCart, { ...product, quantity: 1 }]
       }
     })
   }
@@ -46,14 +34,14 @@ function App() {
   const removeFromCart = (productId) => {
     setCart(currentCart => {
       const existingItem = currentCart.find(item => item.id === productId)
-      
+
       if (existingItem.quantity === 1) {
         return currentCart.filter(item => item.id !== productId)
       }
-      
-      return currentCart.map(item => 
-        item.id === productId 
-          ? {...item, quantity: item.quantity - 1}
+
+      return currentCart.map(item =>
+        item.id === productId
+          ? { ...item, quantity: item.quantity - 1 }
           : item
       )
     })
@@ -67,7 +55,7 @@ function App() {
           Carrinho ({cart.reduce((sum, item) => sum + item.quantity, 0)})
         </Link>
       </nav>
-      
+
       <div className="container">
         <Routes>
           <Route path="/" element={<ProductsPage />} />
