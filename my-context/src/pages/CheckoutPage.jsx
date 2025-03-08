@@ -1,12 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import '../styles/CheckoutPage.css'
 
+// Componente CheckoutPage que recebe a prop cart
 function CheckoutPage({ cart }) {
+  // Calcula o total do carrinho
   const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0)
 
+  // Função para lidar com o envio do formulário
   const handleSubmit = (e) => {
     e.preventDefault()
-    // Aqui você pode adicionar a lógica para processar o pagamento
+    // Aqui pode-se adicionar a lógica para processar o pagamento
     alert('Pedido realizado com sucesso!')
   }
 
@@ -16,6 +20,7 @@ function CheckoutPage({ cart }) {
       
       <div className="order-summary">
         <h3>Resumo do Pedido</h3>
+        {/* Mapeia os itens do carrinho e os exibe */}
         {cart.map(item => (
           <div key={item.id} className="checkout-item">
             <span>{item.name}</span>
@@ -28,6 +33,7 @@ function CheckoutPage({ cart }) {
         </div>
       </div>
 
+      {/* Formulário para finalizar a compra */}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Nome Completo:</label>
@@ -69,6 +75,7 @@ function CheckoutPage({ cart }) {
   )
 }
 
+// Definição das propTypes para validação das props
 CheckoutPage.propTypes = {
   cart: PropTypes.arrayOf(
     PropTypes.shape({
